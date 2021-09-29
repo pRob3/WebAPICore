@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
+﻿using Core.Models;
+using DataStore.EF;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace WebApi.Controllers
 {
@@ -7,58 +10,89 @@ namespace WebApi.Controllers
     [Route("api/[controller]")]
     public class ProjectsController : ControllerBase
     {
+        private readonly BugsContext db;
+
+        public ProjectsController(BugsContext db)
+        {
+            this.db = db;
+        }
+
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok("Reading all the projects.");
+            return Ok(db.Projects.ToList());
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok($"Reading project #{id}.");
+            var project = db.Projects.Find(id);
+            if (project == null)
+                return NotFound();
+
+            return Ok(project);
         }
 
         [HttpGet]
         [Route("/api/projects/{pid}/tickets")]
-        public IActionResult GetProjectTicket(int pId, [FromQuery] int tId)
+        public IActionResult GetProjectTickets(int pId)
         {
-            if (tId == 0)
-                return Ok($"Reading all the tickets belong to project #{pId}.");
+            
+            var tickets = db.Tickets.Where(t => t.ProjectId == pId).ToList();
 
-            return Ok($"Reading project #{pId}, ticket #{tId}.");
+            if (tickets == null || tickets.Count <= 0)
+                return NotFound();
+
+            return Ok(tickets);
         }
-
-        //[HttpGet]
-        //[Route("/api/projects/{pid}/tickets")]
-        //public IActionResult GetProjectTicket([FromQuery]Ticket ticket)
-        //{
-        //    if (ticket == null)
-        //        return BadRequest("Parameters are not provided properly!");
-
-        //    if (ticket.TicketId == 0)
-        //        return Ok($"Reading all the tickets belong to project #{ticket.ProjectId}.");
-
-        //    return Ok($"Reading project #{ticket.ProjectId}, ticket #{ticket.TicketId}, title: {ticket.Title}, description: {ticket.Description}.");
-        //}
-
 
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Post([FromBody] Project project)
         {
-            return Ok("Creating project");
+            db.Projects.Add(project);
+            db.SaveChanges();
+
+            return CreatedAtAction(nameof(GetById),
+                new { id = project.ProjectId },
+                project);
         }
 
-        [HttpPut]
-        public IActionResult Put()
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Project project)
         {
-            return Ok("Updating a project.");
+            if(id != project.ProjectId)
+                return BadRequest();
+
+            db.Entry(project).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+
+            }
+            catch
+            {
+                if (db.Projects.Find(id) == null)
+                    return NotFound();
+
+                throw;
+            }
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            return Ok($"Deleting project #{id}.");
+            var project = db.Projects.Find(id);
+            if(project == null)
+                return NotFound();
+
+            db.Projects.Remove(project);
+            db.SaveChanges();
+
+
+            return Ok(project);
         }
     }
 }

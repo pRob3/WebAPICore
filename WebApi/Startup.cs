@@ -46,7 +46,6 @@ namespace WebApi
                 // Create the in-memory database for dev enviroment
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
-
             }
 
             app.UseRouting();
