@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PlatformDemo.Filters;
-using PlatformDemo.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Models;
+using Microsoft.AspNetCore.Mvc;
 
-namespace PlatformDemo.Controllers
+namespace WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -26,18 +20,11 @@ namespace PlatformDemo.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostV1([FromBody]Ticket ticket)
+        public IActionResult Post([FromBody]Ticket ticket)
         {
             return Ok(ticket);
         }
 
-        [HttpPost]
-        [Route("/api/v2/tickets")]
-        [Ticket_ValidateDatesActionFilter]
-        public IActionResult PostV2([FromBody] Ticket ticket)
-        {
-            return Ok(ticket);
-        }
 
         [HttpPut]
         public IActionResult Put([FromBody] Ticket ticket)
