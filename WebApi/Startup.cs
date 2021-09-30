@@ -41,7 +41,7 @@ namespace WebApi
                 options.ReportApiVersions = true;
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
-                //options.ApiVersionReader = new HeaderApiVersionReader("X-API-Version");
+                options.ApiVersionReader = new HeaderApiVersionReader("X-API-Version");
             });
         }
 
