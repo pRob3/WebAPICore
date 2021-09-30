@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,14 @@ namespace WebApi
                 options.ReportApiVersions = true;
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
-                options.ApiVersionReader = new HeaderApiVersionReader("X-API-Version");
+                //options.ApiVersionReader = new HeaderApiVersionReader("X-API-Version");
+            });
+
+            services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV");
+
+            services.AddSwaggerGen(options => {
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "My Web API v1", Version = "version 1" });
+                options.SwaggerDoc("v2", new OpenApiInfo { Title = "My Web API v2", Version = "version 2" });
             });
         }
 
@@ -55,6 +63,15 @@ namespace WebApi
                 // Create the in-memory database for dev enviroment
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
+
+                // Swagger
+                app.UseSwagger();
+                app.UseSwaggerUI(
+                        options => {
+                            options.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1");
+                            options.SwaggerEndpoint("/swagger/v2/swagger.json", "WebAPI v2");
+                        });
+
             }
 
             app.UseRouting();

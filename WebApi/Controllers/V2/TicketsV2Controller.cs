@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Filters.V2;
 
-namespace WebApi.Controllers
+namespace WebApi.Controllers.V2
 {
     [ApiVersion("2.0")]
     [ApiController]
