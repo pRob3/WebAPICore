@@ -2,9 +2,11 @@
 using DataStore.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Filters.V2;
+using WebApi.QueryFilters;
 
 namespace WebApi.Controllers.V2
 {
@@ -22,9 +24,27 @@ namespace WebApi.Controllers.V2
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] TicketQueryFilter ticketQueryFilter)
         {
-            return Ok(await db.Tickets.ToListAsync());
+            IQueryable<Ticket> tickets = db.Tickets;
+            
+            if(ticketQueryFilter != null)
+            {
+                if(ticketQueryFilter.Id.HasValue)
+                    tickets = tickets.Where(x => x.TicketId == ticketQueryFilter.Id);
+
+                if(!string.IsNullOrWhiteSpace(ticketQueryFilter.Title))
+                    tickets = tickets.Where(x => x.Title.Contains(ticketQueryFilter.Title, 
+                        StringComparison.OrdinalIgnoreCase));
+
+                if (!string.IsNullOrWhiteSpace(ticketQueryFilter.Description))
+                    tickets = tickets.Where(x => x.Description.Contains(ticketQueryFilter.Description,
+                        StringComparison.OrdinalIgnoreCase));
+            }
+
+
+
+            return Ok(await tickets.ToListAsync());
         }
 
         [HttpGet("{id}")]
