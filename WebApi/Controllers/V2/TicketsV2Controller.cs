@@ -4,18 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Filters.V2;
 
-namespace WebApi.Controllers.V2
+namespace WebApi.Controllers
 {
-    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [ApiController]
-    [Route("api/[controller]")]
-    public class TicketsController : ControllerBase
+    [Route("api/tickets")]
+    public class TicketsV2Controller : ControllerBase
     {
 
         private readonly BugsContext db;
 
-        public TicketsController(BugsContext db)
+        public TicketsV2Controller(BugsContext db)
         {
             this.db = db;
         }
@@ -37,6 +38,7 @@ namespace WebApi.Controllers.V2
         }
 
         [HttpPost]
+        [Ticket_EnsureDescriptionPresentActionFilter]
         public async Task<IActionResult> Post([FromBody]Ticket ticket)
         {
             db.Tickets.Add(ticket);
@@ -49,6 +51,7 @@ namespace WebApi.Controllers.V2
 
 
         [HttpPut("{id}")]
+        [Ticket_EnsureDescriptionPresentActionFilter]
         public async Task<IActionResult> Put(int id, Ticket ticket)
         {
             if (id != ticket.TicketId)
