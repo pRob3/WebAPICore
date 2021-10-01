@@ -1,0 +1,42 @@
+﻿@page "/projects/{projectId:int}/tickets"
+@inject ITicketsScreenUseCases  TicketsScreenUseCases
+<h3>Tickets</h3>
+
+@if (tickets != null)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Owner</th>
+                <th>Report Date</th>
+                <th>Due Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ticket in tickets)
+            {
+                <tr>
+                    <td>@ticket.Title</td>
+                    <td>@ticket.Owner</td>
+                    <td>@(ticket.ReportDate.HasValue ? ticket.ReportDate.Value.ToShortDateString() : "")</td>
+                    <td>@(ticket.DueDate.HasValue ? ticket.DueDate.Value.ToShortDateString() : "")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    [Parameter]
+    public int ProjectId { get; set; }
+
+    IEnumerable<Ticket> tickets;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        tickets = await TicketsScreenUseCases.ViewTickets(ProjectId);
+    }
+
+}

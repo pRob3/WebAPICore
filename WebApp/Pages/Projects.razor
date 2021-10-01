@@ -9,7 +9,9 @@
     <ul>
         @foreach (var project in projects)
         {
-            <li>@project.Name</li>
+            <li>
+                <a href="@($"/projects/{project.ProjectId}/tickets")">@project.Name</a>
+            </li>
         }
     </ul>
 }

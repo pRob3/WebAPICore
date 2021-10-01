@@ -27,9 +27,9 @@ namespace DataStore.EF
             );
 
             modelBuilder.Entity<Ticket>().HasData(
-                new Ticket { TicketId = 1, Title="Bug #1", ProjectId = 1,},
-                new Ticket { TicketId = 2, Title="Bug #2", ProjectId = 1,},
-                new Ticket { TicketId = 3, Title="Bug #3", ProjectId = 2,}
+                new Ticket { TicketId = 1, Title="Bug #1", ProjectId = 1, Owner = "Dennis", ReportDate = new DateTime(2021,10,01), DueDate = new DateTime(2021, 11, 01) },
+                new Ticket { TicketId = 2, Title="Bug #2", ProjectId = 1, Owner = "Dennis", ReportDate = new DateTime(2021, 09, 01), DueDate = new DateTime(2021, 10, 08) },
+                new Ticket { TicketId = 3, Title="Bug #3", ProjectId = 2}
             );
         }
     }
