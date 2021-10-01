@@ -1,11 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>MyApp.ApplicationLogic</RootNamespace>
+    <AssemblyName>MyApp.ApplicationLogic</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\App.Repository\App.Repository.csproj" />
+    <ProjectReference Include="..\App.Repository\MyApp.Repository.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 

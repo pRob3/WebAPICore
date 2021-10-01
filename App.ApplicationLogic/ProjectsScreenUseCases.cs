@@ -1,11 +1,11 @@
-﻿using App.Repository;
+﻿using MyApp.Repository;
 using Core.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace App.ApplicationLogic
+namespace MyApp.ApplicationLogic
 {
     public class ProjectsScreenUseCases
     {
