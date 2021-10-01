@@ -16,12 +16,7 @@
         <tbody>
             @foreach (var ticket in tickets)
             {
-                <tr>
-                    <td>@ticket.Title</td>
-                    <td>@ticket.Owner</td>
-                    <td>@(ticket.ReportDate.HasValue ? ticket.ReportDate.Value.ToShortDateString() : "")</td>
-                    <td>@(ticket.DueDate.HasValue ? ticket.DueDate.Value.ToShortDateString() : "")</td>
-                </tr>
+                <TicketRowComponent Ticket="ticket" />
             }
         </tbody>
     </table>
