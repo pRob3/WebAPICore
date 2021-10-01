@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStore.EF", "DataStore.EF\DataStore.EF.csproj", "{85EBCF9A-938D-4F20-B511-4E7A44CA1E65}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Repository", "App.Repository\MyApp.Repository.csproj", "{8BDDE59E-3DF9-43A7-885A-90E6C0B174D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Repository", "MyApp.Repository\MyApp.Repository.csproj", "{8BDDE59E-3DF9-43A7-885A-90E6C0B174D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Testing.Console", "App.Testing.Console\App.Testing.Console.csproj", "{A8F0BCE0-6E4A-4A7E-975B-DA55BF045840}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Testing.Console", "MyApp.Testing.Console\MyApp.Testing.Console.csproj", "{A8F0BCE0-6E4A-4A7E-975B-DA55BF045840}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.ApplicationLogic", "App.ApplicationLogic\App.ApplicationLogic.csproj", "{895726E6-94EA-4EBE-BF65-C77D68EB9A53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.ApplicationLogic", "MyApp.ApplicationLogic\MyApp.ApplicationLogic.csproj", "{895726E6-94EA-4EBE-BF65-C77D68EB9A53}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{8318E765-2F4F-4DEE-9E4D-3F0D21AF850F}"
 EndProject

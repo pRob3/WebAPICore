@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\App.ApplicationLogic\App.ApplicationLogic.csproj" />
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\MyApp.ApplicationLogic\MyApp.ApplicationLogic.csproj" />
+    <ProjectReference Include="..\MyApp.Repository\MyApp.Repository.csproj" />
   </ItemGroup>
 
   <ItemGroup>

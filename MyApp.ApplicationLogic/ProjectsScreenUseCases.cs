@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyApp.ApplicationLogic
 {
-    public class ProjectsScreenUseCases
+    public class ProjectsScreenUseCases : IProjectsScreenUseCases
     {
         private readonly IProjectRepository projectRepository;
 
