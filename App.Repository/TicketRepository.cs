@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace App.Repository
 {
-    public class TicketRepository
+    public class TicketRepository : ITicketRepository
     {
         private readonly IWebApiExecuter webApiExecuter;
         private readonly string apiVersion = "api-version=2.0";
@@ -43,7 +43,7 @@ namespace App.Repository
         public async Task UpdateAsync(Ticket ticket)
         {
             await webApiExecuter.InvokePut($"api/tickets/{ticket.TicketId}?{apiVersion}", ticket);
-            
+
         }
 
         public async Task DeleteAsync(int id)

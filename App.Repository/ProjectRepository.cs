@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace App.Repository
 {
-    public class ProjectRepository
+    public class ProjectRepository : IProjectRepository
     {
         private readonly IWebApiExecuter webApiExecuter;
 
@@ -40,7 +40,7 @@ namespace App.Repository
         public async Task UpdateAsync(Project project)
         {
             await webApiExecuter.InvokePut($"api/projects/{project.ProjectId}", project);
-            
+
         }
 
         public async Task DeleteAsync(int id)
