@@ -1,6 +1,17 @@
 ﻿@page "/projects/{projectId:int}/tickets"
-@inject ITicketsScreenUseCases  TicketsScreenUseCases
+@inject ITicketsScreenUseCases TicketsScreenUseCases
+
 <h3>Tickets</h3>
+<br />
+
+<div class="row">
+    <div class="col-auto">
+        <input type="text" class="form-control" />
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-light">Search</button>
+    </div>
+</div>
 
 @if (tickets != null)
 {
@@ -24,14 +35,19 @@
 
 @code {
 
+    IEnumerable<Ticket> tickets;
+    string searchFilter;
+
     [Parameter]
     public int ProjectId { get; set; }
-
-    IEnumerable<Ticket> tickets;
 
     protected override async Task OnParametersSetAsync()
     {
         tickets = await TicketsScreenUseCases.ViewTickets(ProjectId);
     }
 
+    private async Task OnSearch()
+    {
+        tickets = await TicketsScreenUseCases.SearchTickets(searchFilter);
+    }
 }

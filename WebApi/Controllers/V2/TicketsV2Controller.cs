@@ -27,20 +27,18 @@ namespace WebApi.Controllers.V2
         public async Task<IActionResult> Get([FromQuery] TicketQueryFilter ticketQueryFilter)
         {
             IQueryable<Ticket> tickets = db.Tickets;
-            
-            if(ticketQueryFilter != null)
+
+            if (ticketQueryFilter != null)
             {
-                if(ticketQueryFilter.Id.HasValue)
+                if (ticketQueryFilter.Id.HasValue)
                     tickets = tickets.Where(x => x.TicketId == ticketQueryFilter.Id);
 
-                if(!string.IsNullOrWhiteSpace(ticketQueryFilter.TitleOrDescription))
-                    tickets = tickets.Where(x => x.Title.Contains(ticketQueryFilter.TitleOrDescription, 
-                        StringComparison.OrdinalIgnoreCase) ||
-                        x.Description.Contains(ticketQueryFilter.TitleOrDescription,
-                        StringComparison.OrdinalIgnoreCase));
-
+                if (!string.IsNullOrWhiteSpace(ticketQueryFilter.TitleOrDescription))
+                    tickets = tickets.Where(x => x.Title.Contains(ticketQueryFilter.TitleOrDescription,
+                       StringComparison.OrdinalIgnoreCase) ||
+                       x.Description.Contains(ticketQueryFilter.TitleOrDescription,
+                       StringComparison.OrdinalIgnoreCase));
             }
-
 
 
             return Ok(await tickets.ToListAsync());
