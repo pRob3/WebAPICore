@@ -38,13 +38,14 @@
             <InputDate class="form-control" id="duedate" @bind-Value="ticket.DueDate"></InputDate>
         </div>
 
-        <button class="btn btn-primary" type="submit">Save</button>
+        <button class="btn btn-primary mr-3" type="submit">Save</button>
+        <button class="btn btn-danger" type="button" @onclick="DeleteTicket">Delete </button>
 
     </EditForm>
 }
 
 @code{
-        Ticket ticket;
+    Ticket ticket;
         AlertComponent alertComponent;
 
         [Parameter]
@@ -112,5 +113,14 @@
 
             NavigationManager.NavigateTo($"/projects/{ticket.ProjectId}/tickets");
         }
+    }
+
+    async Task DeleteTicket()
+    {
+        if (!TicketId.HasValue) return;
+
+        await TicketScreenUseCases.DeleteTicket(TicketId.Value);
+        NavigationManager.NavigateTo($"/projects/{ticket.ProjectId}/tickets");
+
     }
 }

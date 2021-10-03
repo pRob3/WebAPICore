@@ -21,5 +21,10 @@ namespace MyApp.ApplicationLogic
         {
             return await ticketRepository.CreateAsync(ticket);
         }
+
+        public async Task DeleteTicket(int ticketId)
+        {
+            await ticketRepository.DeleteAsync(ticketId);
+        }
     }
 }
