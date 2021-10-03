@@ -1,7 +1,7 @@
 ﻿@if (Ticket != null)
 {
     <tr>
-        <td>@Ticket.Title</td>
+        <td><a href="/tickets/@Ticket.TicketId">@Ticket.Title</a></td>
         <td>@Ticket.Owner</td>
         <td>@(Ticket.ReportDate.HasValue ? Ticket.ReportDate.Value.ToShortDateString() : "")</td>
         <td>@(Ticket.DueDate.HasValue ? Ticket.DueDate.Value.ToShortDateString() : "")</td>

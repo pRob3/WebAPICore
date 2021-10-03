@@ -23,8 +23,11 @@ namespace WebApp
             builder.Services.AddSingleton<IWebApiExecuter>(sp => new WebApiExecuter("https://localhost:44323", new HttpClient()));
 
             builder.Services.AddTransient<IProjectsScreenUseCases, ProjectsScreenUseCases>();
+            builder.Services.AddTransient<ITicketScreenUseCases, TicketScreenUseCases>();
             builder.Services.AddTransient<ITicketsScreenUseCases, TicketsScreenUseCases>();
+
             builder.Services.AddTransient<IProjectRepository, ProjectRepository>();
+            builder.Services.AddTransient<ITicketRepository, TicketRepository>();
 
             //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 

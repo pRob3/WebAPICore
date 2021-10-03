@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.QueryFilters;
 
 namespace WebApi.Controllers.V2
 {
@@ -37,15 +38,19 @@ namespace WebApi.Controllers.V2
 
         [HttpGet]
         [Route("/api/projects/{pid}/tickets")]
-        public async Task<IActionResult> GetProjectTickets(int pId)
+        public async Task<IActionResult> GetProjectTickets(int pId,
+            [FromQuery] ProjectTicketQueryFilter filter)
         {
-            
-            var tickets = await db.Tickets.Where(t => t.ProjectId == pId).ToListAsync();
+            IQueryable<Ticket> tickets = db.Tickets.Where(t => t.ProjectId == pId);
+            if (filter != null && !string.IsNullOrWhiteSpace(filter.Owner))
+                tickets = tickets.Where(t => !string.IsNullOrWhiteSpace(t.Owner) &&
+                    t.Owner.ToLower() == filter.Owner.ToLower());
 
-            if (tickets == null || tickets.Count <= 0)
+            var listTickets = await tickets.ToListAsync();
+            if (listTickets == null || listTickets.Count <= 0)
                 return NotFound();
 
-            return Ok(tickets);
+            return Ok(listTickets);
         }
 
         [HttpPost]
